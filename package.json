@@ -1,0 +1,36 @@
+{
+  "name": "sebe",
+  "version": "1.0.0",
+  "description": "SE Back End",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvergaray/SEBE.git"
+  },
+  "keywords": [
+    "SEBE"
+  ],
+  "author": "Marco Vergaray",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mvergaray/SEBE/issues"
+  },
+  "homepage": "https://github.com/mvergaray/SEBE#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "connect-multiparty": "^2.2.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "moment": "^2.24.0",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pug": "^2.0.4"
+  }
+}

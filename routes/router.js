@@ -1,0 +1,30 @@
+var user = require('./users');
+let clients = require('./clients');
+let documents = require('./documents');
+let internalClients = require('./internalClients');
+let offices = require('./offices');
+let areas = require('./areas');
+let documentTypes = require('./documentTypes');
+let shippingTypes = require('./shippingTypes');
+let employees = require('./employees');
+let zones = require('./zones');
+let ubigeo = require('./ubigeo');
+let auth = require('./auth');
+let entities = require('./entities');
+const passport = require('passport');
+
+module.exports = function (app) {
+    app.use('/auth', auth);
+    app.use('/documents', passport.authenticate('jwt', {session: false}), documents);
+    app.use('/clients', passport.authenticate('jwt', {session: false}), clients);
+    app.use('/users', passport.authenticate('jwt', {session: false}), user);
+    app.use('/internalClients', passport.authenticate('jwt', {session: false}), internalClients);
+    app.use('/offices', passport.authenticate('jwt', {session: false}), offices);
+    app.use('/areas', passport.authenticate('jwt', {session: false}), areas);
+    app.use('/documentTypes', passport.authenticate('jwt', {session: false}), documentTypes);
+    app.use('/shippingTypes', passport.authenticate('jwt', {session: false}), shippingTypes);
+    app.use('/employees', passport.authenticate('jwt', {session: false}), employees);
+    app.use('/zones', passport.authenticate('jwt', {session: false}), zones);
+    app.use('/ubigeo', passport.authenticate('jwt', {session: false}), ubigeo);
+    app.use('/entities', passport.authenticate('jwt', {session: false}), entities);
+};
