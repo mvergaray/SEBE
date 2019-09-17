@@ -547,4 +547,152 @@ DocumentCtrl.closeDocument = (req, res) => {
   });
 };
 
+DocumentCtrl.getRecords = (req, res) => {
+  let params = {
+      pageStart: parseInt(req.query.pageStart || req.query.skip || 0, 10),
+      // Default Page Count to 50
+      pageCount: parseInt(req.query.pageCount || req.query.limit || 50, 10),
+      orderBy: req.query.orderBy,
+      startDate: parseFloat(req.query.startDate || 0),
+      endDate: parseFloat(req.query.endDate || 0),
+
+      // Document data
+      code: req.query.code,
+      document: req.query.document,
+      destination: req.query.destination,
+      sender: req.query.sender,
+      created_by: req.query.created_by,
+      reference: req.query.reference,
+      client_id: req.query.client_id,
+      binnacle_id: req.query.binnacle_id,
+      status: req.query.status
+    },
+    handleError = (err) => {
+      printLog(err);
+      ResponseUtils.sendInternalServerError(res, err);
+    },
+    query = 'SELECT idrecord ' +
+      ', IFNULL(UPPER(a.document), \'\') document ' +
+      ', IFNULL(DATE_FORMAT(a.date, \'%d/%c/%Y - %H:%i:%S\'), \'\') date ' +
+      ', IFNULL(DATE_FORMAT(a.date, \'%d/%c/%Y\'), \'\') short_date ' +
+      ', IFNULL(DATE_FORMAT(created_at, \'%d/%c/%Y - %H:%i:%S\'), \'\') created_at ' +
+      ', IFNULL(UPPER(a.destination), \'\') destination ' +
+      ', IFNULL(UPPER(a.address), \'\') address ' +
+      ', IFNULL(UPPER(a.dpto), \'\') dpto ' +
+      ', IFNULL(UPPER(a.province), \'\') province ' +
+      ', IFNULL(UPPER(a.district), \'\') district ' +
+      ', IFNULL(UPPER(a.sender), \'\') sender ' +
+      ', IFNULL(a.sender_id, \'\') sender_id ' +
+      ', IFNULL(UPPER(a.code), \'\') code ' +
+      ', IFNULL(UPPER(a.reference), \'\') reference ' +
+      ', IFNULL(a.creationCode, \'\') creationCode ' +
+      ', IFNULL(a.weight, \'\') weight ' +
+      ', IFNULL(UPPER(a.status), \'\') status ' +
+      ', IFNULL(UPPER(a.origin), \'\') origin ' +
+      ', IFNULL(UPPER(a.contact), \'\') contact ' +
+      'FROM RECORDS a ' +
+
+      'IGNORE INDEX (fk_user_id_idx, fk_client_id_idx, fk_sender_id_idx) ' +
+      (params.binnacle_id ?
+        'LEFT JOIN BINNACLE_RECORDS b ON a.idrecord = b.record_id ' :
+        '') +
+      'WHERE a.STATUS <> 2 ',
+        dataParams = [];
+
+  if (params.status) {
+    query += ' AND a.STATUS = ?';
+    dataParams.push(params.status);
+  }
+
+  if (params.binnacle_id) {
+    query += ' AND b.binnacle_id = ?';
+    dataParams.push(params.binnacle_id);
+  }
+
+  if (params.client_id) {
+    query += ' AND a.client_id = ?';
+    dataParams.push(params.client_id);
+  }
+
+  if (params.code) {
+    query += ' AND a.CODE LIKE ? ';
+    dataParams.push('%' + params.code + '%');
+  }
+
+  if (params.document) {
+    query += ' AND a.DOCUMENT LIKE ? ';
+    dataParams.push('%' + params.document + '%');
+  }
+
+  if (params.destination) {
+    query += ' AND a.DESTINATION LIKE ? ';
+    dataParams.push('%' + params.destination + '%');
+  }
+
+  if (params.sender) {
+    query += ' AND a.SENDER LIKE ? ';
+    dataParams.push('%' + params.sender + '%');
+  }
+
+  if (params.created_by) {
+    query += ' AND a.CREATED_BY = ? ';
+    dataParams.push(params.created_by);
+  }
+
+  if (params.reference) {
+    query += ' AND a.REFERENCE LIKE ? ';
+    dataParams.push('%' + params.reference + '%');
+  }
+
+  if (params.startDate) {
+    query += ' AND DATE(a.DATE) >= ? ';
+    dataParams.push(new Date(params.startDate));
+  }
+
+  if (params.endDate) {
+    query += ' AND DATE(a.DATE) <= ? ';
+    dataParams.push(new Date(params.endDate));
+  }
+
+  if (params.orderBy) {
+    // Add an ORDER BY sentence
+    // TODO: add irdrecord as second order param
+    query += ' ORDER BY ';
+    if (params.orderBy && params.orderBy.indexOf('date') === -1) {
+      query += params.orderBy;
+      query += ', a.DATE DESC';
+    } else if (params.orderBy && params.orderBy.indexOf('date') > -1) {
+      query += 'a.' + params.orderBy;
+    } else {
+      query += 'a.DATE DESC';
+    }
+  } else {
+    query += ' ORDER BY a.DATE DESC, a.IDRECORD DESC ';
+  }
+
+  if (!isNaN(params.pageStart) && !isNaN(params.pageCount)) {
+    // Set always an start for data
+    query += ' LIMIT ? ';
+    dataParams.push(params.pageStart);
+
+    query += ', ?';
+    dataParams.push(params.pageCount);
+  }
+
+  query += ';';
+
+  dbQuery(query, dataParams, (err, rows) => {
+    let result;
+
+    if (err) return ResponseUtils.sendInternalServerError(res, err, result);
+
+    result = {
+      count: rows.length > 0 ? rows.length + params.pageStart + 1 : 0,
+      list: rows
+    };
+
+    res.status(200).json(result);
+  });
+};
+
 module.exports = DocumentCtrl;
