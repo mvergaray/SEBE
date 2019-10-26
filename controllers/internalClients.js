@@ -1,4 +1,4 @@
-var ClientCtrl = {};
+let ClientCtrl = {};
 
 ClientCtrl.getClients = (req, res) => {
 var filter = {

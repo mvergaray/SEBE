@@ -17,4 +17,10 @@ router.post('/assign', documentCtrl.assignDocument);
 router.post('/discharge', documentCtrl.dischargeDocument);
 router.post('/close', documentCtrl.closeDocument);
 
+router.get('/files/name', documentCtrl.getFileName);
+
+/* Legacy Records Svc */
+
+router.get('/records/list', documentCtrl.getRecords);
+
 module.exports = router;

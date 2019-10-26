@@ -1,5 +1,5 @@
-var extend = require('util')._extend;
-var OfficeCtrl = {};
+let extend = require('util')._extend;
+let OfficeCtrl = {};
 
 /**
  * Office Object
@@ -19,7 +19,7 @@ var OfficeCtrl = {};
  */
 
 OfficeCtrl.getObjects = (req, res) => {
-  var office = {
+  let office = {
       id: req.query.id,
       client_id: req.query.client_id,
       name: req.query.name,

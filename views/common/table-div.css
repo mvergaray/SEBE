@@ -1,0 +1,105 @@
+.table-div {
+  display: table;
+}
+.table-div .row {
+  display: table-row;
+}
+.table-div .cell {
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  display: table-cell;
+}
+.table-div .border-bottom .cell {
+  border-bottom: 1px solid black;
+}
+.cell.indexcol {
+  border-left: 1px solid black;
+  vertical-align: middle;
+  width: 10px;
+}
+.cell.codebarcol {
+  vertical-align: middle;
+  width: 220px;
+}
+.header .cell {
+  padding: 0 5px;
+}
+.header .cell.indexcol, .content .cell.indexcol {
+  padding: 0;
+}
+.content .row {
+  height: 85px;
+}
+.content .row.not-internal-client {
+  height: 40px;
+}
+.content .cell.codebarcol {
+  vertical-align: middle;
+  padding: 5px 0;
+}
+.content .cell.codebarcol.codecol-padding {
+  vertical-align: middle;
+  padding: 0 5px;
+}
+.internal-client .cell.documentcol {
+  padding: 0 5px;
+  vertical-align: middle;
+  width: 85px;
+  max-width: 85px;
+  word-wrap: break-word;
+}
+.internal-client .cell.sendercol {
+  padding: 0 5px;
+  vertical-align: middle;
+  width: 85px;
+}
+.not-internal-client .cell.documentcol {
+  padding: 0 5px;
+  vertical-align: middle;
+  width: 100px;
+  max-width: 100px;
+  word-wrap: break-word;
+}
+.not-internal-client .cell.destinationcol, .cell.destinationcol {
+  padding: 0 5px;
+  vertical-align: middle;
+}
+.internal-client .cell.destinationcol {
+  width: 110px;
+}
+.not-internal-client .cell.destinationcol {
+  width: 130px;
+}
+.not-internal-client .office-assign.cell.destinationcol{
+  width: 100px;
+}
+.not-internal-client .cell.sendercol {
+  padding: 0 5px;
+  vertical-align: middle;
+  width: 100px;
+}
+.cell.signaturecol {
+  width: 70px;
+}
+
+/*** DISCHARGE CLOSE PDF ***/
+.close-pdf {
+  margin-left: 10px;
+}
+.close-table .content .row.not-internal-client {
+  height: 15px;
+}
+.close-table .row.not-internal-client .cell.documentcol,
+.close-table .row.not-internal-client .cell.destinationcol {
+  width: 170px;
+  max-width: 170px;
+}
+.close-table .row.not-internal-client .cell.statuscol {
+  padding: 0 5px;
+  vertical-align: middle;
+  width: 110px;
+  max-width: 110px;
+}
+
+
+/**************************/

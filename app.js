@@ -2,13 +2,10 @@ let express = require('express'),
     app = express(),
     http = require('http'),
     https = require('https'),
-    path = require('path'),
     fs = require('fs'),
-    responseUltis = require('./core/ResponseUtils'),
     configs = require('./core/config'),
     logger = require('morgan'),
     compression = require('compression'),
-    moment = require('moment'),
     port = configs.PORT;
 
 // On Window it requires https://github.com/nodejs/node-gyp#installation

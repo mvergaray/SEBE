@@ -1,0 +1,87 @@
+html
+    head
+        style
+            include ../common/common.css
+            include ../common/table-div.css
+            include ../common/bootstrap.min.css
+        script
+            include ../common/vendor.jquery.js
+            include ../common/vendor.barcode.js
+            include ../common/common.js
+
+body.assign
+    if (no_data)
+        div No se encontró manifiesto
+    else
+        div
+            div.col-se-6.align-top
+                h3
+                    b ASIGNACIÓN DE REGISTROS
+            div.col-se-6
+                if (assignment_type != "OFICINA")
+                    div.form-group
+                        span.control-label.col-se-3
+                            b MANIFIESTO:
+                        div.col-se-9.manifiesto-code.center
+                            div.barcode-row
+                                div(class="content barcode" code= manifest_code)
+                            div.manifest-code= manifest_code
+
+        div.assign-header
+            div.col-se-6.align-top
+                div.form-group
+                    span.control-label.col-se-3 #[b TIPO:]
+                    div.col-se-9= assignment_type
+                div.form-group
+                    span.control-label.col-se-3 #[b ASIGNAR A:]
+                    div.col-se-9= assigned_to
+                div.form-group
+                    span.control-label.col-se-3 #[b DIRECCIÓN:]
+                    div.col-se-9= destination
+                div.form-group
+                    span.control-label.col-se-3 #[b ORIGEN:]
+                    div.col-se-9= origin
+            div.col-se-6.alight-top
+                div.form-group
+                    span.control-label.col-se-4
+                        b FECHA:
+                    div.col-se-8= manifest_date
+                div.form-group
+                    span.control-label.col-se-4 #[b TIPO DE ENVÍO:]
+                    div.col-se-8= ship_type
+                div.form-group
+                    span.control-label.col-se-4 #[b ORDEN DE SERVICIO:]
+                    div.col-se-8= service_order
+        div.table-div
+            div.header
+                div.row(class={"internal-client": is_internal_client, "not-internal-client": !is_internal_client})
+                    div.cell.indexcol #
+                    div.cell.codebarcol CÓDIGO
+                    div.cell.documentcol NRO. DOC.
+                    div.cell.destinationcol(class={"office-assign":assignment_type == "OFICINA"}) DESTINO
+                    div.cell.sendercol REMITENTE
+                    if is_internal_client
+                        div.cell.signaturecol FIRMA Y SELLO
+            div.content
+                if table && table.length
+                    each x, idx in table
+                        div.row(class={"internal-client": is_internal_client, "not-internal-client": !is_internal_client, "border-bottom": (!!is_internal_client && (idx + 1 == 8 || ((idx - 7) % 9) == 0)) || (!is_internal_client && (idx + 1 == 16 || ((idx - 15) % 19) == 0)) || ((idx + 1) == table.length)})
+                            div.cell.indexcol= idx+1
+                            div.cell.codebarcol
+                                div.center
+                                    div.barcode-row
+                                        div(class="barcode" code= x.code)
+                                    div.manifest-code= x.code
+                            div.cell.documentcol
+                                div(class={true: "limitLength", false: "limitLength-nic"}[!!is_internal_client]) !{x.document}
+                            div.cell.destinationcol(class={"office-assign":assignment_type == "OFICINA"})
+                                b= x.destination
+                            div.cell.sendercol= x.sender
+                            if is_internal_client
+                                div.cell.signaturecol
+                        if is_internal_client
+                            if (idx + 1 == 8 || ((idx - 7) % 9) == 0)
+                                div.break-page
+                        else
+                            if (idx + 1 == 16 || ((idx - 15) % 19) == 0)
+                                div.break-page

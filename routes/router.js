@@ -7,10 +7,12 @@ let areas = require('./areas');
 let documentTypes = require('./documentTypes');
 let shippingTypes = require('./shippingTypes');
 let employees = require('./employees');
+let folders = require('./folders');
 let zones = require('./zones');
 let ubigeo = require('./ubigeo');
 let auth = require('./auth');
 let entities = require('./entities');
+let reports = require('./reports');
 const passport = require('passport');
 
 module.exports = function (app) {
@@ -27,4 +29,6 @@ module.exports = function (app) {
     app.use('/zones', passport.authenticate('jwt', {session: false}), zones);
     app.use('/ubigeo', passport.authenticate('jwt', {session: false}), ubigeo);
     app.use('/entities', passport.authenticate('jwt', {session: false}), entities);
+    app.use('/folders', passport.authenticate('jwt', {session: false}), folders);
+    app.use('/reports', reports);
 };

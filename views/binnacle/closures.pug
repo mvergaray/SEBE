@@ -1,0 +1,65 @@
+html
+    head
+        style
+            include ../common/common.css
+            include ../common/table-div.css
+            include ../common/bootstrap.min.css
+        script
+            include ../common/vendor.jquery.js
+            include ../common/common.js
+
+body.assign.close-pdf
+    if (no_data)
+        div No se encontró manifiesto
+    else
+        div.col-se-6.align-top
+            h3
+                if (action_id == 3)
+                    b CIERRE DE REGISTROS
+                else
+                    b DESCARGA DE REGISTROS
+
+        div.assign-header
+            div.col-se-6.align-top
+                if (action_id == 3)
+                    div.form-group
+                        span.control-label.col-se-3 #[b FECHA:]
+                        div.col-se-9= manifest_date
+                    div.form-group
+                        span.control-label.col-se-3 #[b A USUARIO:]
+                        div.col-se-9= assign_to
+                    div.form-group
+                        span.control-label.col-se-3 #[b DIRECCIÓN:]
+                        div.col-se-9= address
+                else
+                    div.form-group
+                        span.control-label.col-se-3 #[b FECHA:]
+                        div.col-se-9= discharged_at
+                    div.form-group
+                        span.control-label.col-se-3.align-top #[b RECEPCIONADO POR:]
+                        div.col-se-9= service_order
+                div.form-group
+                    span.control-label.col-se-3 #[b ORIGEN:]
+                    div.col-se-9= origin
+
+        div.table-div.close-table
+            div.header
+                div.row.not-internal-client
+                    div.cell.indexcol #
+                    div.cell.codebarcol CÓDIGO
+                    div.cell.documentcol NRO. DOC.
+                    div.cell.destinationcol DESTINO
+                    div.cell.statuscol ESTADO
+            div.content
+                if table && table.length
+                    each x, idx in table
+                        div.row.not-internal-client(class={"border-bottom": ((idx + 1 == 48 || ((idx - 47) % 53) == 0) || ((idx+1) == table.length))})
+                            div.cell.indexcol= idx + 1
+                            div.cell.codebarcol.codecol-padding
+                                div.manifest-code= x.code
+                            div.cell.documentcol
+                                div.limitLength-dc !{x.document}
+                            div.cell.destinationcol.limitLength-dc= x.destination + ' - ' + x.address
+                            div.cell.statuscol.limitLength-small-dc= (action_id == 3 ? x.status : ship_type)
+                        if (idx + 1 == 48 || ((idx - 47) % 53) == 0)
+                            div.break-page
