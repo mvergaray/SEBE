@@ -824,19 +824,13 @@ DocumentCtrl.getRecordsByParams = (params, skipPrinting) => {
 DocumentCtrl.getFileName = (req, res) => {
   const url = `${configs.FILE_SERVER}publicAccess/getFilesName`;
 
-  //const url = `http://${req.headers.host}/publicAccess/getFilesName`;
-
-  console.log(url);
-  console.log(req.query);
   axios.get(url, {
     params: req.query,
     paramsSerializer: params => {
-      console.log(qs.stringify(params))
       return qs.stringify(params)
     }
   })
   .then(response => {
-    console.log(response);
     res.json(response.data);
   })
   .catch(error => {

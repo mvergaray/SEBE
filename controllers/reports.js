@@ -38,7 +38,7 @@ Controller.generateExcel = (req, res) => {
 
     Promise.all(promises).then((result) => {
       _.forEach(records, (record) => {
-        var location_name = _.get(_.find(result[0], {user_id: parseInt(record.sender_id, 0)}), 'location_name') || '',
+        let location_name = _.get(_.find(result[0], {user_id: parseInt(record.sender_id, 0)}), 'location_name') || '',
             binnacle = _.find(result[1], {record_id: record.idrecord}) || {},
             discharge = _.find(result[2], {record_id: record.idrecord}) || {},
             closure = _.find(result[3], {record_id: record.idrecord}) || {};
@@ -131,7 +131,7 @@ Controller.renderTemplate = (req, res) => {
 
     binnacleCtrl.getRecordsByIds([tickets], isTicket).then(
       (records) => {
-        var user_ids = _.uniq(_.map(records, 'sender_id')) || [];
+        let user_ids = _.uniq(_.map(records, 'sender_id')) || [];
 
         binnacleCtrl.getUsers(user_ids, false, true).then((users) => {
           _.forEach(records, (record) => {
@@ -150,7 +150,7 @@ Controller.renderTemplate = (req, res) => {
 };
 
 Controller.generateExcelByParams = (req, res) => {
-  var params = req.body,
+  let params = req.body,
       promises = [],
       filter = {
         code: params.code,
@@ -173,7 +173,7 @@ Controller.generateExcelByParams = (req, res) => {
       exelConfig = excelConf.config;
 
   documentCtrl.getRecordsByParams(filter, false).then((records) => {
-    var user_ids = _.uniq(_.map(records, 'sender_id')) || [],
+    let user_ids = _.uniq(_.map(records, 'sender_id')) || [],
         record_ids = _.uniq(_.map(records, 'idrecord')) || [],
         shouldLoadUsers = !!(user_ids || []).length;
 
@@ -186,7 +186,7 @@ Controller.generateExcelByParams = (req, res) => {
 
     Promise.all(promises).then((result) => {
       _.forEach(records, (record) => {
-        var location_name = _.get(_.find(result[0], {user_id: parseInt(record.sender_id, 0)}), 'location_name') || '',
+        let location_name = _.get(_.find(result[0], {user_id: parseInt(record.sender_id, 0)}), 'location_name') || '',
             binnacle = _.find(result[1], {record_id: record.idrecord}) || {},
             discharge = _.find(result[2], {record_id: record.idrecord}) || {},
             closure = _.find(result[3], {record_id: record.idrecord}) || {};
@@ -302,7 +302,7 @@ Controller.printTemplate = (req, res) => {
 };
 
 Controller.getBinnacleExcel = (req, res) => {
-  var binnacle_id = req.params.id || -1,
+  let binnacle_id = req.params.id || -1,
     action_id = req.body.action_id || 1,
     promises = [],
     handleError = (err) => {
@@ -326,7 +326,7 @@ Controller.getBinnacleExcel = (req, res) => {
   }
 
   binnacleCtrl.getRecordsByBinnacles([binnacle_id]).then((records) => {
-    var user_ids = _.uniq(_.map(records, 'sender_id')) || [],
+    let user_ids = _.uniq(_.map(records, 'sender_id')) || [],
         record_ids = _.uniq(_.map(records, 'idrecord')) || [],
         shouldLoadUsers = !!(user_ids || []).length;
 
@@ -342,7 +342,7 @@ Controller.getBinnacleExcel = (req, res) => {
 
     Promise.all(promises).then((result) => {
       _.forEach(records, (record) => {
-        var location_name = _.get(_.find(result[0], {user_id: parseInt(record.sender_id, 0)}), 'location_name') || '',
+        let location_name = _.get(_.find(result[0], {user_id: parseInt(record.sender_id, 0)}), 'location_name') || '',
             binnacle = _.find(result[1], {record_id: record.idrecord}) || {},
             discharge = _.find(result[2], {record_id: record.idrecord}) || {},
             closure = _.find(result[3], {record_id: record.idrecord}) || {};
@@ -386,7 +386,7 @@ Controller.getBinnacleExcel = (req, res) => {
 };
 
 Controller.getBinnacle = (req, res) => {
-  var binnacle_id = req.params.id + '',
+  let binnacle_id = req.params.id + '',
     action = req.body.action_id == 1 ? 'binnacle-assignment' : 'binnacle-closure',
     url = `${HOSTPROTOCOL}${req.headers.host}/reports/${action}/${binnacle_id}`,
     padString = '0000000000',
@@ -426,7 +426,7 @@ Controller.getBinnacle = (req, res) => {
 };
 
 Controller.getAssignments = (req, res) => {
-  var binnacle_id = req.params.id,
+  let binnacle_id = req.params.id,
     handleError = (err) => {
       printLog(err);
       ResponseUtils.sendInternalServerError(res, err);
@@ -477,8 +477,7 @@ Controller.getAssignments = (req, res) => {
 };
 
 Controller.getClosures = (req, res) => {
-  console.log('MACOOOY');
-  var binnacle_id = req.params.id,
+  let binnacle_id = req.params.id,
     handleError = (err) => {
       printLog(err);
       ResponseUtils.sendInternalServerError(res, err);
@@ -497,7 +496,7 @@ Controller.getClosures = (req, res) => {
         );
 
         Promise.all(promises).then((result) => {
-          var dischargePromise = [];
+          let dischargePromise = [];
 
           try {
             let assign_to = _.find(result[0], {user_id: binnacle.assigned_id}) || {},
