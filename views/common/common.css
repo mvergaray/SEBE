@@ -1,0 +1,288 @@
+body .ticket, .ticket span, .ticket div {
+  font-size: 6px;
+}
+
+.ticket .barcode {
+  height: 15px;
+  overflow: hidden !important;
+}
+
+.ticket .barcode-row {
+  border-bottom: 1px solid black;
+  padding: 5px 0;
+  margin: 0 10px;
+}
+
+.certficate .barcode-row {
+  padding: 5px 0;
+  margin: 0 10px;
+}
+
+.ticket {
+  margin-bottom: 50px;
+}
+
+.ticket .form-group {
+  margin-bottom: 4px !important;
+}
+
+.medium {
+  font-size: 9px;
+}
+
+.ticket .data{
+  height: 15px;
+  overflow: hidden;
+}
+
+.ticket .col-se-12 {
+  display: block;
+  padding-left: 5px;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.col-se-11 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 91%;
+}
+
+.col-se-10 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 83%;
+}
+
+.col-se-7 {
+  display: inline-block;
+  padding-left: 5px;
+  vertical-align: top;
+  width: 58%;
+}
+
+.col-se-6 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 49%;
+}
+
+.ticket .col-se-6 {
+  vertical-align: top;
+}
+
+.ticket .break-ticket {
+  border: 1px solid black;
+  margin-bottom: 32px;
+}
+
+.ticket .even-ticket {
+  margin-right: 10px;
+}
+
+.certificate .col-se-6 {
+  margin-bottom: 25px;
+}
+
+.col-se-4 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 33%;
+}
+
+.col-se-3 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 24%;
+}
+
+.col-se-2 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 16%;
+}
+
+.col-se-1 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 8%;
+}
+
+.ticket .control-label,
+.certificate .control-label {
+  vertical-align: top;
+}
+
+.break-page {
+  page-break-before: always;
+}
+
+.top-margin {
+  margin-top:50px;
+}
+
+.center {
+  text-align: center;
+}
+
+body .certificate, .certificate span, .certificate div,
+.certificate pre {
+  font-size: 10px;
+}
+
+.certificate pre, .assign pre {
+  background: none;
+  border: none;
+  font-family: "Helvetica Neue", Helvetica,Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.certificate b {
+  font-size: 14px;
+}
+
+.certificate .barcode {
+  height: 25px;
+  overflow: hidden !important;
+}
+
+.certificate .break-line {
+  border-top: 1px solid black;
+  margin: 25px 0 20px;
+}
+
+.certificate .dotted-line {
+  border-top: 1px dashed black;
+  margin: 45px 0 30px;
+}
+
+.certificate .certificate-box {
+  border: 1px solid black;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.certificate .form-group {
+  margin-bottom: 15px !important;
+}
+
+.certificate .certificate-box .form-group {
+  margin-bottom: 5px !important;
+}
+
+/**Assign PDF**/
+body .assign, .assign span, .assign div, .assign h3,
+.assign .table, .assign tr, .assign td, .assign pre {
+  font-size: 6px !important;
+}
+.assign .barcode {
+  height: 15px;
+  overflow: hidden !important;
+}
+
+.assign .col-se-12 {
+  display: block;
+  padding-left: 5px;
+  margin-top:50px;
+  width: 100%;
+}
+
+.assign .col-se-11 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 91%;
+}
+
+.assign .col-se-10 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 83%;
+}
+
+.assign .col-se-9 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 72%;
+}
+
+.assign .col-se-8 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 64%;
+}
+
+.assign .col-se-7 {
+  display: inline-block;
+  padding-left: 5px;
+  vertical-align: top;
+  width: 58%;
+}
+
+.assign .col-se-6 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 47%;
+}
+
+.assign .col-se-5 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 41%;
+}
+
+.assign .col-se-4 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 33%;
+}
+
+.assign .col-se-3 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 24%;
+}
+
+.assign .col-se-2 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 16%;
+}
+
+.assign .col-se-1 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 8%;
+}
+
+.assign .align-top {
+  vertical-align: top;
+  margin-bottom: 5px
+}
+.assign .align-top h3 {
+  display: inline;
+}
+
+.assign .assign-header {
+  margin-bottom: 5px;
+}
+.assign .form-group {
+  margin-bottom: 2px;
+}
+
+/**************/
+
+/** CLOSE PDF **/
+.close-table .row.not-internal-client .cell.codebarcol {
+  width: 80px;
+  max-width: 80px;
+}
+.close-table .row.not-internal-client .cell.destinationcol {
+  width: 160px;
+  max-width: 160px;
+}
+.close-table .row.not-internal-client .cell.documentcol {
+  width: 100px;
+  max-width: 100px;
+}
+/****/

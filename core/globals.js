@@ -49,6 +49,7 @@ global.printLog = function (msg) {
       callback.apply(this, arguments);
     });
     connection.on('error', function (err) {
+      console.log('throwing an event on connection error');
       throw err;
       return;
     });

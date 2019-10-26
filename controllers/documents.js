@@ -1,4 +1,8 @@
-var _ = require('lodash'),
+const configs = require('../core/config'),
+  axios = require('axios')
+  qs = require('qs');
+
+let _ = require('lodash'),
     Record = require('../models/record'),
     Binnacle = require('../models/binnacle'),
     ResponseUtils = require('../core/ResponseUtils.js'),
@@ -692,6 +696,152 @@ DocumentCtrl.getRecords = (req, res) => {
     };
 
     res.status(200).json(result);
+  });
+};
+
+DocumentCtrl.getRecordsByParams = (params, skipPrinting) => {
+  return new Promise( ( resolve, reject) => {
+    var query = 'SELECT idrecord ' +
+      ', IFNULL(UPPER(a.document), \'\') document ' +
+      ', IFNULL(DATE_FORMAT(a.date, \'%d/%c/%Y - %H:%i:%S\'), \'\') date ' +
+      ', IFNULL(DATE_FORMAT(a.date, \'%d/%c/%Y\'), \'\') short_date ' +
+      ', IFNULL(DATE_FORMAT(created_at, \'%d/%c/%Y - %H:%i:%S\'), \'\') created_at ' +
+      ', IFNULL(UPPER(a.destination), \'\') destination ' +
+      ', IFNULL(UPPER(a.address), \'\') address ' +
+      ', IFNULL(UPPER(a.dpto), \'\') dpto ' +
+      ', IFNULL(UPPER(a.province), \'\') province ' +
+      ', IFNULL(UPPER(a.district), \'\') district ' +
+      ', IFNULL(UPPER(a.sender), \'\') sender ' +
+      ', IFNULL(a.sender_id, \'\') sender_id ' +
+      ', IFNULL(UPPER(a.code), \'\') code ' +
+      ', IFNULL(UPPER(a.reference), \'\') reference ' +
+      ', IFNULL(a.creationCode, \'\') creationCode ' +
+      ', IFNULL(a.weight, \'\') weight ' +
+      ', IFNULL(UPPER(a.status), \'\') status ' +
+      ', IFNULL(UPPER(a.origin), \'\') origin ' +
+      ', IFNULL(UPPER(a.contact), \'\') contact ' +
+      'FROM RECORDS a ' +
+
+      'IGNORE INDEX (fk_user_id_idx, fk_client_id_idx, fk_sender_id_idx) ' +
+      (params.binnacle_id ?
+        'LEFT JOIN BINNACLE_RECORDS b ON a.idrecord = b.record_id ' :
+        '') +
+      'WHERE a.STATUS <> 2 ',
+        dataParams = [];
+
+    if (params.status) {
+      query += ' AND a.STATUS = ?';
+      dataParams.push(params.status);
+    }
+
+    if (params.binnacle_id) {
+      query += ' AND b.binnacle_id = ?';
+      dataParams.push(params.binnacle_id);
+    }
+
+    if (params.client_id) {
+      query += ' AND a.client_id = ?';
+      dataParams.push(params.client_id);
+    }
+
+    if (params.code) {
+      query += ' AND a.CODE LIKE ? ';
+      dataParams.push('%' + params.code + '%');
+    }
+
+    if (params.document) {
+      query += ' AND a.DOCUMENT LIKE ? ';
+      dataParams.push('%' + params.document + '%');
+    }
+
+    if (params.destination) {
+      query += ' AND a.DESTINATION LIKE ? ';
+      dataParams.push('%' + params.destination + '%');
+    }
+
+    if (params.sender) {
+      query += ' AND a.SENDER LIKE ? ';
+      dataParams.push('%' + params.sender + '%');
+    }
+
+    if (params.created_by) {
+      query += ' AND a.CREATED_BY = ? ';
+      dataParams.push(params.created_by);
+    }
+
+    if (params.reference) {
+      query += ' AND a.REFERENCE LIKE ? ';
+      dataParams.push('%' + params.reference + '%');
+    }
+
+    if (params.startDate) {
+      query += ' AND DATE(a.DATE) >= ? ';
+      dataParams.push(new Date(params.startDate));
+    }
+
+    if (params.endDate) {
+      query += ' AND DATE(a.DATE) <= ? ';
+      dataParams.push(new Date(params.endDate));
+    }
+
+    if (params.orderBy) {
+      // Add an ORDER BY sentence
+      // TODO: add irdrecord as second order param
+      query += ' ORDER BY ';
+      if (params.orderBy && params.orderBy.indexOf('date') === -1) {
+        query += params.orderBy;
+        query += ', a.DATE DESC';
+      } else if (params.orderBy && params.orderBy.indexOf('date') > -1) {
+        query += 'a.' + params.orderBy;
+      } else {
+        query += 'a.DATE DESC';
+      }
+    } else {
+      query += ' ORDER BY a.DATE DESC, a.IDRECORD DESC ';
+    }
+
+    if (!isNaN(params.pageStart) && !isNaN(params.pageCount)) {
+      // Set always an start for data
+      query += ' LIMIT ? ';
+      dataParams.push(params.pageStart);
+
+      query += ', ?';
+      dataParams.push(params.pageCount);
+    }
+
+    query += ';';
+
+    dbQuery(query, dataParams, (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    }, skipPrinting);
+  });
+};
+
+DocumentCtrl.getFileName = (req, res) => {
+  const url = `${configs.FILE_SERVER}publicAccess/getFilesName`;
+
+  //const url = `http://${req.headers.host}/publicAccess/getFilesName`;
+
+  console.log(url);
+  console.log(req.query);
+  axios.get(url, {
+    params: req.query,
+    paramsSerializer: params => {
+      console.log(qs.stringify(params))
+      return qs.stringify(params)
+    }
+  })
+  .then(response => {
+    console.log(response);
+    res.json(response.data);
+  })
+  .catch(error => {
+    printLog(error);
+    res.status(500).send({code: 500, msg: 'Internal Server Error', dev: error});
   });
 };
 

@@ -1,0 +1,54 @@
+html
+    head
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        style
+            include ../common/common.css
+            include ../common/bootstrap.min.css
+        script
+            include ../common/vendor.jquery.js
+            include ../common/vendor.barcode.js
+            include ../common/common.js
+
+body.ticket
+    div
+        div.col-se-12
+            each x, idx in documents
+                div.col-se-6.break-ticket(class={ "even-ticket": idx%2 === 0})
+                    div.form-group
+                        span.control-label= x.client
+                    div.form-group
+                        span.control-label.col-se-1 Por:
+                        div.col-se-6.data= x.sender
+                        span.control-label.col-se-1 Fecha:
+                        div.col-se-4= x.date
+                    div.form-group
+                        span.control-label.col-se-1 Nº:
+                        div.col-se-7.data !{x.document}
+                        span.control-label.col-se-4= x.code
+                    div.form-group
+                        span.control-label.col-se-1 Área:
+                        div.col-se-11.data= x.location_name
+                    div.form-group
+                        div.barcode-row
+                            div(class="barcode" code= x.code)
+                    div.form-group
+                        span.control-label.col-se-2 Para:
+                        div.col-se-10.medium.data= x.destination
+                    div.form-group
+                        span.control-label.col-se-2 Dirección:
+                        div.col-se-10.medium.data= x.address
+                    div.form-group
+                        span.control-label.col-se-2 Distrito :
+                        div.col-se-10.data= (x.dpto || '-') + ' / ' + (x.province || '-') + ' / '+ (x.district || '-')
+                    div.form-group
+                        span.control-label.col-se-2 Contacto:
+                        div.col-se-10.data= x.contact
+                    div.form-group
+                        span.control-label.col-se-2 Tipo Doc:
+                        div.col-se-10.data= x.doc_type
+                    div.form-group
+                        span.control-label.col-se-2 Detalle:
+                        div.col-se-10.data !{x.reference}
+                if ((idx + 1) % 6 === 0)
+                    div.break-page
+                    div.top-margin

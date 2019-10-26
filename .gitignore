@@ -63,3 +63,4 @@ typings/
 
 # ========== Config Files ==========
 core/config.js
+.DS_Store

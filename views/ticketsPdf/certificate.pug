@@ -1,0 +1,69 @@
+html
+    head
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        style
+            include ../common/common.css
+            include ../common/bootstrap.min.css
+        script
+            include ../common/vendor.jquery.js
+            include ../common/vendor.barcode.js
+            include ../common/common.js
+
+body
+    div
+        div.col-se-12
+            each x, idx in documents
+                div.certificate
+                    div.form-group
+                        span.control-label.col-se-6.title= x.client
+                        div.col-se-4.barcode-row.center
+                            div(class="barcode" code= x.code)
+                            span.control-label.col-se-4= x.code
+                    div.form-group.center
+                        b CARGO DEL AREA
+                    div.form-group
+                        span.control-label.col-se-4 REMITENTE DEL DOCUMENTO:
+                        div.col-se-7= x.sender
+                    div.form-group
+                        span.control-label.col-se-4 NOMBRE DE ÁREA:
+                        div.col-se-7= x.location_name
+                    div.form-group
+                        span.control-label.col-se-4 FECHA DE EMISIÓN / REGISTRO:
+                        div.col-se-7= x.date
+                    div.break-line
+
+                    div.form-group
+                        span.control-label.col-se-4 EMPRESA / CONTACTO:
+                        div.col-se-7= x.destination
+                    div.form-group
+                        span.control-label.col-se-4 DIRECCIÓN:
+                        div.col-se-7= x.address
+                    div.form-group
+                        span.control-label.col-se-4 DISTRITO:
+                        div.col-se-7= (x.dpto || '-') + ' / ' + (x.province || '-') + ' / '+ (x.district || '-')
+                    div.form-group
+                        span.control-label.col-se-4 CONTACTO:
+                        div.col-se-7= x.contact
+                    div.form-group
+                        span.control-label.col-se-4 NÚMERO DE DOCUMENTO:
+                        div.col-se-7
+                            pre !{x.document}
+                    div.form-group
+                        span.control-label.col-se-4 DETALLE DE ENVÍO:
+                        div.col-se-7
+                            pre !{x.reference}
+                    div.dotted-line
+                    div.col-se-10.certificate-box
+                        div.form-group
+                            span.control-label.col-se-3 Empresa:
+                            div.col-se-7= x.destination
+                        div.form-group
+                            span.control-label.col-se-3 Dirección:
+                            div.col-se-7= x.address
+                        div.form-group
+                        span.control-label.col-se-3 Distrito:
+                        div.col-se-7= x.district
+
+                if ((idx + 1) < documents.length)
+                    div.break-page
+                    div.top-margin
