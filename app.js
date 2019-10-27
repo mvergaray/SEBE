@@ -25,35 +25,8 @@ app.use(function (request, response) {
 });
 
 const httpServer = http.createServer(app);
-// SSL Configuration
-if (configs.enableSSL) {
-  const privateKey = fs.readFileSync(configs.privateKey, 'utf8');
-  const certificate = fs.readFileSync(configs.certificate, 'utf8');
-  const ca = fs.readFileSync(configs.ca, 'utf8');
 
-  const credentials = {
-    key: privateKey,
-    cert: certificate,
-    ca: ca
-  };
-
-  // Starting both http & https servers
-  const httpsServer = https.createServer(credentials, app);
-
-  httpsServer.listen(443, () => {
-    console.log('Public server  running at port ' + 443);
-    console.log('\tAT:' + new Date());
-  });
-
-  // Redirect from http port to https
-  http.createServer(function (req, res) {
-      res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-      res.end();
-  }).listen(port);
-
-} else {
-  httpServer.listen(port, () => {
-    console.log('Public server  running at port ' + port);
-    console.log('\tAT:' + new Date());
-  });
-}
+httpServer.listen(port, () => {
+  console.log('Public server  running at port ' + port);
+  console.log('\tAT:' + new Date());
+});
