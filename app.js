@@ -1,8 +1,6 @@
 let express = require('express'),
     app = express(),
     http = require('http'),
-    https = require('https'),
-    fs = require('fs'),
     configs = require('./core/config'),
     logger = require('morgan'),
     compression = require('compression'),

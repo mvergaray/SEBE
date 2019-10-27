@@ -7,6 +7,7 @@ const _ = require('lodash');
 const nodeExcel = require('excel-export');
 const excelConf = require('../core/excelConf');
 const ResponseUtils = require('../core/ResponseUtils');
+const https = require('https');
 
 let pdf = require('html-pdf');
 let Controller = {};
