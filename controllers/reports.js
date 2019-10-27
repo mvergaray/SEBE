@@ -83,7 +83,7 @@ Controller.tickets = (req, res) => {
   let ids = req.body.ids,
     isTicket = req.body.is_ticket + '',
     fileName = isTicket == 1 ? 'Etiquetas' : 'Cargo_de_area_',
-    url = `${HOSTPROTOCOL}${req.headers.host}/reports/render-template?is_ticket=${isTicket}&ids=${ids}`;
+    url = `${HOSTPROTOCOL}${configs.BACKEND_HOST}/reports/render-template?is_ticket=${isTicket}&ids=${ids}`;
 
   // Ignore ssl error
   const agent = new https.Agent({
@@ -236,7 +236,7 @@ Controller.generateExcelByParams = (req, res) => {
 Controller.print = (req, res) => {
   let id = req.params.id,
       fileName = 'Registro',
-      url = `${HOSTPROTOCOL}${req.headers.host}/reports/print-template/${id}`;
+      url = `${HOSTPROTOCOL}${configs.BACKEND_HOST}/reports/print-template/${id}`;
 
   // Ignore ssl error
   const agent = new https.Agent({
@@ -397,7 +397,7 @@ Controller.getBinnacleExcel = (req, res) => {
 Controller.getBinnacle = (req, res) => {
   let binnacle_id = req.params.id + '',
     action = req.body.action_id == 1 ? 'binnacle-assignment' : 'binnacle-closure',
-    url = `${HOSTPROTOCOL}${req.headers.host}/reports/${action}/${binnacle_id}`,
+    url = `${HOSTPROTOCOL}${configs.BACKEND_HOST}/reports/${action}/${binnacle_id}`,
     padString = '0000000000',
     fileName = padString.substring(0, padString.length - binnacle_id.length) + binnacle_id;
 
