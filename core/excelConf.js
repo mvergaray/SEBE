@@ -52,7 +52,7 @@ const configs = require('./config'),
         }]
       },
       config: {
-        stylesXmlFile: configs.PROJECT_PATH + '/server/core/style.xml',
+        stylesXmlFile: configs.PROJECT_PATH + '/core/style.xml',
         name: 'Etiquetas',
         cols: [{
           caption: 'N° Doc.',
@@ -127,7 +127,7 @@ const configs = require('./config'),
       },
 
       templateConfig: {
-        stylesXmlFile: configs.PROJECT_PATH + '/server/core/style.xml',
+        stylesXmlFile: configs.PROJECT_PATH + '/core/style.xml',
         name: 'Plantilla',
         cols: [{
           caption: 'Nro. Doc.',
@@ -160,7 +160,7 @@ const configs = require('./config'),
       },
 
       templateCodeConfig: {
-        stylesXmlFile: configs.PROJECT_PATH + '/server/core/style.xml',
+        stylesXmlFile: configs.PROJECT_PATH + '/core/style.xml',
         name: 'Plantilla',
         cols: [{
           caption: 'Nro. Doc.',
