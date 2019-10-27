@@ -8,7 +8,7 @@ const configs = require('./config'),
       'assigned_to', 'order_id', 'assigned_at', 'binnacle_id', 'status', 'received_by', 'discharged_at',
       'closed_at', 'final_user'],
       closureConfig: {
-        stylesXmlFile: configs.PROJECT_PATH + '/server/core/style.xml',
+        stylesXmlFile: configs.PROJECT_PATH + '/core/style.xml',
         name: 'Etiquetas',
         cols: [{
           caption: 'N° Doc.',
