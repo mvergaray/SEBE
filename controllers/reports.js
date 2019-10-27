@@ -85,7 +85,11 @@ Controller.tickets = (req, res) => {
     fileName = isTicket == 1 ? 'Etiquetas' : 'Cargo_de_area_',
     url = `${HOSTPROTOCOL}${req.headers.host}/reports/render-template?is_ticket=${isTicket}&ids=${ids}`;
 
-  axios.get(url, {})
+  // Ignore ssl error
+  const agent = new https.Agent({
+    rejectUnauthorized: false
+  });
+  axios.get(url, { httpsAgent: agent })
     .then(response => {
       pdf.create(response.data,
         {
@@ -234,7 +238,12 @@ Controller.print = (req, res) => {
       fileName = 'Registro',
       url = `${HOSTPROTOCOL}${req.headers.host}/reports/print-template/${id}`;
 
-  axios.get(url, {})
+  // Ignore ssl error
+  const agent = new https.Agent({
+    rejectUnauthorized: false
+  });
+
+  axios.get(url, { httpsAgent: agent })
       .then(response => {
         pdf.create(response.data,
           {
@@ -392,7 +401,12 @@ Controller.getBinnacle = (req, res) => {
     padString = '0000000000',
     fileName = padString.substring(0, padString.length - binnacle_id.length) + binnacle_id;
 
-  axios.get(url, {})
+  // Ignore ssl error
+  const agent = new https.Agent({
+    rejectUnauthorized: false
+  });
+
+  axios.get(url, { httpsAgent: agent })
     .then(response => {
       pdf.create(response.data,
         {
