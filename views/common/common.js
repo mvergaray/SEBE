@@ -2,6 +2,15 @@ $().ready(function () {
   $('.barcode').each(function (item, el) {
        $(el).barcode($(el).attr('code'), 'code39', {output: 'bmp', showHRI: true});
    });
+
+  $('.qrcode').each(function (item, el) {
+    var qrcode = new QRCode(el.id, {
+      width: 50,
+      height: 50
+    });
+    qrcode.makeCode(el.getAttribute('code'));
+  });
+
   $('.limitLength').each(function(item, el) {
        var value = $(el).text(),
            addEllipsis = value.length > 200;

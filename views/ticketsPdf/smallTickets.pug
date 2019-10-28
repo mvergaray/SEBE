@@ -7,6 +7,7 @@ html
         script
             include ../common/vendor.jquery.js
             include ../common/vendor.barcode.js
+            include ../common/qrcode.min.js
             include ../common/common.js
 
 body.ticket
@@ -15,39 +16,43 @@ body.ticket
             each x, idx in documents
                 div.col-se-6.break-ticket(class={ "even-ticket": idx%2 === 0})
                     div.form-group
-                        span.control-label= x.client
-                    div.form-group
-                        span.control-label.col-se-1 Por:
-                        div.col-se-6.data= x.sender
-                        span.control-label.col-se-1 Fecha:
-                        div.col-se-4= x.date
-                    div.form-group
-                        span.control-label.col-se-1 Nº:
-                        div.col-se-7.data !{x.document}
-                        span.control-label.col-se-4= x.code
-                    div.form-group
-                        span.control-label.col-se-1 Área:
-                        div.col-se-11.data= x.location_name
-                    div.form-group
                         div.barcode-row
                             div(class="barcode" code= x.code)
+                    div.form-group.col-se-8.align-top
+                        div
+                            span.control-label.form-label Cliente:
+                            div.col-se-6.data= x.client
+                            div.col-se-3.data= x.short_date
+                        div
+                            span.control-label.form-label Código:
+                            div.form-data.data= x.code
+                        div
+                            span.control-label.form-label Remitente:
+                            div.form-data.data.ellipsis= x.sender
+                        div
+                            span.control-label.form-label Área:
+                            div.form-data.data.ellipsis= x.location_name
+                    div.form-group.col-se-4.align-top
+                        div.qrcode(id= ("qrcode-" + x.code) code= x.code)
                     div.form-group
-                        span.control-label.col-se-2 Para:
-                        div.col-se-10.medium.data= x.destination
+                        span.control-label.form-label Nº Doc.:
+                        div.col-se-10.data !{x.document}
                     div.form-group
-                        span.control-label.col-se-2 Dirección:
-                        div.col-se-10.medium.data= x.address
+                        span.control-label.form-label Destinatario:
+                        div.col-se-10.medium.data.ellipsis= x.destination
                     div.form-group
-                        span.control-label.col-se-2 Distrito :
-                        div.col-se-10.data= (x.dpto || '-') + ' / ' + (x.province || '-') + ' / '+ (x.district || '-')
+                        span.control-label.form-label Dirección:
+                        div.col-se-10.medium.data.ellipsis= x.address
                     div.form-group
-                        span.control-label.col-se-2 Contacto:
-                        div.col-se-10.data= x.contact
+                        span.control-label.form-label Distrito :
+                        div.form-data-small.data.ellipsis= (x.dpto || '-') + ' / ' + (x.province || '-') + ' / '+ (x.district || '-')
+                        span.control-label.form-label Contacto:
+                        div.form-data-small.data.ellipsis= (x.contact || '-')
                     div.form-group
-                        span.control-label.col-se-2 Tipo Doc:
+                        span.control-label.form-label Tipo Doc:
                         div.col-se-10.data= x.doc_type
                     div.form-group
-                        span.control-label.col-se-2 Detalle:
+                        span.control-label.form-label Detalle:
                         div.col-se-10.data !{x.reference}
                 if ((idx + 1) % 6 === 0)
                     div.break-page
