@@ -17,11 +17,6 @@ require('./core/passport');
 require('./core/express-config')(app);
 require('./routes/router')(app);
 
-app.use(function (request, response) {
-  // Instead of 404 error response.end("404!");
-  response.redirect('/');
-});
-
 const httpServer = http.createServer(app);
 
 httpServer.listen(port, () => {

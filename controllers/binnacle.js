@@ -108,6 +108,7 @@ binnacleCtrl.getRecordsByBinnacles = (binnacle_ids, isPdf) => {
         'a.document') +
       '), \'\') document ' +
       ', IFNULL(DATE_FORMAT(a.date, \'%d/%c/%Y %H:%i:%s\'), \'\') date ' +
+      ', IFNULL(DATE_FORMAT(a.date, \'%d/%c/%Y\'), \'\') short_date ' +
       ', IFNULL(UPPER(a.destination), \'\') destination ' +
       ', IFNULL(UPPER(a.address), \'\') address ' +
       ', IFNULL(UPPER(a.dpto), \'\') dpto ' +
@@ -139,6 +140,7 @@ binnacleCtrl.getRecordsByIds = (record_ids, isTicket) => {
   return new Promise( ( resolve, reject) => {
     var query = 'SELECT idrecord ' +
       ', IFNULL(DATE_FORMAT(a.date, \'%d/%c/%Y %H:%i:%s\'), \'\') date ' +
+      ', IFNULL(DATE_FORMAT(a.date, \'%d/%c/%Y\'), \'\') short_date ' +
       ', IFNULL(UPPER(a.destination), \'\') destination ' +
       ', IFNULL(UPPER(a.address), \'\') address ' +
       ', IFNULL(UPPER(a.dpto), \'\') dpto ' +

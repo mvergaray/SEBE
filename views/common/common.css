@@ -5,12 +5,27 @@ body .ticket, .ticket span, .ticket div {
 .ticket .barcode {
   height: 15px;
   overflow: hidden !important;
+  margin: 0 auto;
 }
 
 .ticket .barcode-row {
   border-bottom: 1px solid black;
   padding: 5px 0;
   margin: 0 10px;
+}
+
+.ticket .barcode-row .qrcode {
+  margin: 0 auto;
+}
+
+.qrcode {
+  margin: 4px auto;
+  width: 50px;
+  height: 50px;
+}
+
+.qrcode img {
+  width: 100%;
 }
 
 .certficate .barcode-row {
@@ -24,6 +39,36 @@ body .ticket, .ticket span, .ticket div {
 
 .ticket .form-group {
   margin-bottom: 4px !important;
+  padding-left: 0;
+}
+
+.ticket .form-group .form-label {
+  display: inline-block;
+  padding-left: 4px;
+  width: 40px;
+  font-weight: 500;
+}
+
+.ticket .form-group .form-data {
+  display: inline-block;
+  padding-left: 4px;
+  width: 120px;
+}
+
+.ticket .form-group .form-data-small {
+  display: inline-block;
+  padding-left: 4px;
+  width: 80px;
+}
+
+.ticket .form-group .ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket .form-group.align-top {
+  vertical-align: top;
 }
 
 .medium {
@@ -54,6 +99,12 @@ body .ticket, .ticket span, .ticket div {
   width: 83%;
 }
 
+.col-se-8 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 64%;
+}
+
 .col-se-7 {
   display: inline-block;
   padding-left: 5px;
@@ -82,6 +133,12 @@ body .ticket, .ticket span, .ticket div {
 
 .certificate .col-se-6 {
   margin-bottom: 25px;
+}
+
+.col-se-5 {
+  display: inline-block;
+  padding-left: 5px;
+  width: 40%;
 }
 
 .col-se-4 {
