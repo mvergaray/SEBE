@@ -15,45 +15,47 @@ body.ticket
         div.col-se-12
             each x, idx in documents
                 div.col-se-6.break-ticket(class={ "even-ticket": idx%2 === 0})
-                    div.form-group
-                        div.barcode-row
-                            div(class="barcode" code= x.code)
-                    div.form-group.col-se-8.align-top
+                    div.form-group.align-top
                         div
                             span.control-label.form-label Cliente:
                             div.col-se-6.data= x.client
                             div.col-se-3.data= x.short_date
                         div
-                            span.control-label.form-label Código:
-                            div.form-data.data= x.code
-                        div
                             span.control-label.form-label Remitente:
-                            div.form-data.data.ellipsis= x.sender
+                            div.col-se-6.data= x.sender
+                            div.col-se-3.data= x.code
+                        div
+                            span.control-label.form-label Nº Doc.:
+                            div.form-data-large.data.ellipsis !{x.document}
                         div
                             span.control-label.form-label Área:
                             div.form-data.data.ellipsis= x.location_name
-                    div.form-group.col-se-4.align-top
-                        div.qrcode(id= ("qrcode-" + x.code) code= x.code)
+
                     div.form-group
-                        span.control-label.form-label Nº Doc.:
-                        div.col-se-10.data !{x.document}
+                        div.barcode-row
+                            div(class="barcode" code= x.code)
+
                     div.form-group
                         span.control-label.form-label Destinatario:
                         div.col-se-10.medium.data.ellipsis= x.destination
                     div.form-group
                         span.control-label.form-label Dirección:
                         div.col-se-10.medium.data.ellipsis= x.address
-                    div.form-group
-                        span.control-label.form-label Distrito :
-                        div.form-data-small.data.ellipsis= (x.dpto || '-') + ' / ' + (x.province || '-') + ' / '+ (x.district || '-')
-                        span.control-label.form-label Contacto:
-                        div.form-data-small.data.ellipsis= (x.contact || '-')
-                    div.form-group
-                        span.control-label.form-label Tipo Doc:
-                        div.col-se-10.data= x.doc_type
-                    div.form-group
-                        span.control-label.form-label Detalle:
-                        div.col-se-10.data !{x.reference}
+                    div.form-group.qr-text-column.align-top
+                        div
+                            span.control-label.form-label Distrito :
+                            div.form-data.data.ellipsis= (x.dpto || '-') + ' / ' + (x.province || '-') + ' / '+ (x.district || '-')
+                        div
+                            span.control-label.form-label Contacto:
+                            div.form-data.data.ellipsis= (x.contact || '-')
+                        div
+                            span.control-label.form-label Tipo:
+                            div.form-data.data= x.doc_type
+                        div
+                            span.control-label.form-label Detalle:
+                            div.form-data.data !{x.reference}
+                    div.form-group.qr-column.align-top
+                        div.qrcode(id= ("qrcode-" + x.code) code= x.code)
                 if ((idx + 1) % 6 === 0)
                     div.break-page
                     div.top-margin
