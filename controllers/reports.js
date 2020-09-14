@@ -125,33 +125,63 @@ Controller.tickets = (req, res) => {
 
 Controller.renderTemplate = (req, res) => {
   let params = req.query,
-    isTicket = params.is_ticket == 1,
-    tickets = _.split(params.ids, ',') || [''],
-    manifest = {},
-    handleError = (err) => {
-      printLog(err);
-      ResponseUtils.sendInternalServerError(res, err);
-    },
-    template = isTicket ? 'ticketsPdf/smallTickets' : 'ticketsPdf/certificate';
+      isTicket = params.is_ticket == 1,
+      tickets = _.split(params.ids, ',') || [''],
+      manifest = {},
+      handleError = (err) => {
+        printLog(err);
+        ResponseUtils.sendInternalServerError(res, err);
+      },
+      template = isTicket ? 'ticketsPdf/smallTickets' : 'ticketsPdf/certificate';
 
-    binnacleCtrl.getRecordsByIds([tickets], isTicket).then(
-      (records) => {
-        let user_ids = _.uniq(_.map(records, 'sender_id')) || [];
+  binnacleCtrl.getRecordsByIds([tickets], isTicket).then(
+    (records) => {
+      let user_ids = _.uniq(_.map(records, 'sender_id')) || [];
 
-        binnacleCtrl.getUsers(user_ids, false, true).then((users) => {
-          _.forEach(records, (record) => {
-            let user = _.find(users, {user_id: parseInt(record.sender_id, 0)}) || {},
-                // Match office by sender_id
-                result = _.merge(record, user);
+      binnacleCtrl.getUsers(user_ids, false, true).then((users) => {
+        _.forEach(records, (record) => {
+          let user = _.find(users, {user_id: Number(record.sender_id)}) || {},
+              // Match office by sender_id
+              result = _.merge(record, user);
 
-            return result;
-          });
-
-          manifest.documents = records;
-
-          res.render(template, manifest);
+          return result;
         });
-      }, handleError);
+
+        manifest.documents = records;
+
+        res.render(template, manifest);
+      });
+    }, handleError);
+};
+
+Controller.renderDeliveryConfirmationTemplate = (req, res) => {
+  let params = req.query,
+      tickets = _.split(params.ids, ',') || [''],
+      manifest = {},
+      handleError = (err) => {
+        printLog(err);
+        ResponseUtils.sendInternalServerError(res, err);
+      },
+      template = 'ticketsPdf/deliveryConfirmation';
+
+  binnacleCtrl.getRecordsByIds([tickets], true).then(
+    (records) => {
+      let user_ids = _.uniq(_.map(records, 'sender_id')) || [];
+
+      binnacleCtrl.getUsers(user_ids, false, true).then((users) => {
+        _.forEach(records, (record) => {
+          let user = _.find(users, {user_id: Number(record.sender_id)}) || {},
+              // Match office by sender_id
+              result = _.merge(record, user);
+
+          return result;
+        });
+
+        manifest.documents = records;
+
+        res.render(template, manifest);
+      });
+    }, handleError);
 };
 
 Controller.generateExcelByParams = (req, res) => {

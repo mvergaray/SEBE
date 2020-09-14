@@ -1,0 +1,126 @@
+html
+    head
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        style
+            include ../common/common.css
+            include ../common/bootstrap.min.css
+        script
+            include ../common/vendor.jquery.js
+            include ../common/vendor.barcode.js
+            include ../common/qrcode.min.js
+            include ../common/common.js
+
+body.ticket.delivery-confirmation
+    div
+        div.col-se-12
+            each x, idx in documents
+                div.form-group.col-se-4.break-ticket.even-ticket
+                    div.form-group.align-top.flex.margin-left
+                        div
+                            div
+                                span.control-label.form-label Cliente:
+                                div.col-se-6.data= x.client
+
+                            div
+                                span.control-label.form-label Remitente:
+                                div.col-se-6.data= x.sender
+                            div
+                                span.control-label.form-label Nº Doc.:
+                                div.form-data-large.data.ellipsis !{x.document}
+                            div
+                                span.control-label.form-label Área:
+                                div.form-data-large.data.ellipsis= x.location_name
+                        div
+                            div.data= x.date
+                            div.form-group.qr-column.align-top
+                                div.qrcode(id= ("qrcode-" + x.code) code= x.code)
+
+                    div.margin-left
+                        div
+                            div.barcode-row
+                                div(class="barcode" code= x.code)
+                        br
+                        div
+                            span.control-label.form-label Destinatario:
+                            div.col-se-10.medium.data.ellipsis= x.destination
+
+                        div
+                            span.control-label.form-label Dirección:
+                            div.col-se-10.medium.data.ellipsis= x.address
+
+                        div
+                            div.flex
+                                span.control-label.form-label Distrito :
+                                div.form-data.data.ellipsis= (x.dpto || '-') + ' / ' + (x.province || '-') + ' / '+ (x.district || '-')
+                        div
+                            div.flex
+                                span.control-label.form-label Código:
+                                div.form-data.data= x.code
+
+
+                    div.header
+                        span Conformidad de entrega
+                    div.ticket-block
+                        br
+                        div.form-group.flex
+                            span.control-label.form-label Firma:
+                            div.fill-input
+                        div.form-group.flex
+                            span.control-label.form-label DNI:
+                            div.fill-input
+                        div.form-group.flex
+                            span.control-label.form-label Fecha:
+                            div.fill-input
+                        div.form-group.flex
+                            span.control-label.form-label Parentesco:
+                            div.fill-input
+                    div.header
+                        span Entrega bajo puerta
+                    div.ticket-block
+                        div
+                            span.control-label.margin-left En caso de AUSENCIA del contacto, tomar las siguientes notas:
+                        br
+                        div.form-group.form-group-medium.flex
+                            span.control-label.form-label Fecha y hora de visita:
+                            div.fill-input
+                        div.form-group.form-group-medium.flex
+                            span.control-label.form-label Señalar si es casa o edificio:
+                            div.fill-input
+                        div.form-group.form-group-medium.flex
+                            span.control-label.form-label Color de fachada:
+                            div.fill-input
+
+                    div.border-top.border-bottom.ticket-block
+                        span.margin-left Y al menos 1 de los siguientes criterioes dependiento de la situación
+
+                    div.ticket-block.border-bottom
+                        div.form-group.form-group-large.flex
+                            span.control-label.form-label Nº de suministro de electricidad:
+                            div.fill-input
+                        div.form-group.form-group-medium.flex
+                            span.control-label.form-label Nº Puerta Derrecha:
+                            div.fill-input
+                        div.form-group.form-group-medium.flex
+                            span.control-label.form-label Nº de puerta izquierda:
+                            div.fill-input
+                        div.form-group.form-group-medium.flex
+                            span.control-label.form-label Otros datos:
+                            div.fill-input
+                    div.ticket-block
+                        div.form-group.form-group-large.flex
+                            span.control-label.form-label Notificador:
+
+                        div.form-group.form-group-medium.flex
+                            span.control-label.form-label Nombre Completo:
+                            div.fill-input
+                        div.form-group.form-group-medium.flex
+                            span.control-label.form-label Nº de DNI:
+                            div.fill-input
+                        br
+                        br
+                        div.form-group.flex
+                            span.control-label.form-label Firma:
+                            div.fill-input
+                if ((idx + 1) % 3 === 0)
+                    div.break-page
+                    div.top-margin

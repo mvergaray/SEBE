@@ -91,7 +91,7 @@ body .ticket, .ticket span, .ticket div {
   font-size: 9px;
 }
 
-.ticket .data{
+.ticket .data {
   height: 15px;
   overflow: hidden;
 }
@@ -360,4 +360,108 @@ body .assign, .assign span, .assign div, .assign h3,
   width: 100px;
   max-width: 100px;
 }
+
 /****/
+.delivery-confirmation {
+  margin-bottom: 0;
+}
+
+.delivery-confirmation .border-bottom {
+  border-bottom: 1px solid black;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  padding-bottom: 4px;
+}
+
+.delivery-confirmation .border-top {
+  border-top: 1px solid black;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  padding-top: 4px;
+}
+
+.delivery-confirmation .flex {
+  display: flex;
+  display: -webkit-flex;
+}
+
+.delivery-confirmation .ticket-block {
+  padding-left: 4px;
+  padding-top: 4px;
+  padding-bottom:4px;
+}
+
+.delivery-confirmation .fill-input {
+  width: 100%;
+  border-bottom: 1px solid black;
+  margin-right: 10px;
+  margin-left: 4px;
+}
+
+.delivery-confirmation .qrcode {
+  margin: 0 auto 0 0;
+  width: 50px;
+  height: 50px;
+}
+
+.delivery-confirmation .form-group .form-data-large {
+  display: inline-block;
+  padding-left: 4px;
+  width: 140px;
+}
+
+.delivery-confirmation .margin-left {
+  margin-left: 4px;
+}
+
+.delivery-confirmation .form-group-large .form-label {
+  display: inline-block;
+  padding-left: 4px;
+  min-width: 100px;
+  max-width: 130px;
+  font-weight: 500;
+}
+
+.delivery-confirmation .form-group-medium .form-label {
+  display: inline-block;
+  padding-left: 4px;
+  min-width: 80px;
+  max-width: 130px;
+  font-weight: 500;
+}
+
+.delivery-confirmation .col-se-4 {
+  vertical-align: top;
+  padding-left: 0;
+  width: 32%;
+}
+
+.delivery-confirmation .col-se-12 {
+  margin-top: 30px;
+}
+
+.delivery-confirmation .header {
+  background-color: black;
+  text-align: center;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.delivery-confirmation .header span {
+  color: white;
+}
+
+@media print {
+  .delivery-confirmation .header {
+    background-color: black !important;
+    -webkit-print-color-adjust: exact;
+    text-align: center;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .delivery-confirmation .header span {
+    color: white !important;
+    -webkit-print-color-adjust: exact;
+  }
+}
